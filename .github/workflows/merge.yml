@@ -1,0 +1,13 @@
+name: merge firstBranch Master
+
+on: [push]
+
+jobs: 
+  merge-Branches:
+    runs-on: windows-latest
+    steps:
+      - name: using merge commands
+        run: 
+          git merge Master
+      - name: echo message
+        run: Branches merged!!
