@@ -5,10 +5,11 @@ jobs:
   Branch-test:
     runs-on: windows-latest
     steps:
-        - name: |
+        - name: echo branch
+          run:  |
                 $ git checkout firstBranch
                 Switched to branch 'firstBranch'
         - name: run commands
-               pwd
+          run: pwd
                mkdir Test
     
