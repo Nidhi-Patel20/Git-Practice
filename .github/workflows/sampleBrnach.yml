@@ -10,6 +10,7 @@ jobs:
                 echo "git checkout firstBranch
                 Switched to branch 'firstBranch'"
         - name: run commands
-          run: pwd
+          run:  |
+               pwd
                mkdir Test
     
