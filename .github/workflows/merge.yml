@@ -9,4 +9,4 @@ jobs:
       - name: commands
         run: ls
       - name: echo message
-        run: Branches merged!!
+        run: echo "Branches merged!!"
