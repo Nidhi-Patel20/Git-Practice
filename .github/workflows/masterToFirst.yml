@@ -10,7 +10,7 @@ jobs:
         uses: actions/checkout@v2.4.2
       - name: Git-commands
         run: |
-             git merge firstBranch
+             git merge master
              git push
       - name: echo-message
         run: echo "Branches merged!!"
