@@ -7,7 +7,6 @@ jobs:
     runs-on: windows-latest
     steps:
       - name: using merge commands
-        run: 
-          git merge firstBranch
+        run: git merge firstBranch
       - name: echo message
         run: Branches merged!!
