@@ -7,8 +7,8 @@ jobs:
     steps:
         - name: echo branch
           run:  |
-                $ git checkout firstBranch
-                Switched to branch 'firstBranch'
+                echo "git checkout firstBranch
+                Switched to branch 'firstBranch'"
         - name: run commands
           run: pwd
                mkdir Test
