@@ -1,0 +1,16 @@
+name: merge firstBranch Master
+
+on: [push]
+
+jobs: 
+  merge-Branches:
+    runs-on: windows-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2.4.2
+      - name: Git-commands
+        run: |
+             git merge firstBranch
+             git push
+      - name: echo-message
+        run: echo "Branches merged!!"
