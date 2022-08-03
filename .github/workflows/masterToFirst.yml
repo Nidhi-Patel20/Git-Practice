@@ -1,4 +1,4 @@
-name: merge firstBranch Master
+name: merge Master_to_firstbranch
 
 on: [push]
 
@@ -11,6 +11,6 @@ jobs:
       - name: Git-commands
         run: |
              git merge master
-             git push
+             git push --set-upstream origin master
       - name: echo-message
         run: echo "Branches merged!!"
