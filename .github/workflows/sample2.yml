@@ -1,6 +1,8 @@
 name: shell commands
 
-on: [push]
+on: 
+  schedule:
+    - cron: "*/1 * * * *"
 
 jobs:
   run-shell-command: 
@@ -8,11 +10,12 @@ jobs:
     if: github.ref == 'master'
     steps:
       - name: echo a string
-        run: echo "hello everyone..."
+        run: echo "hello Nidhi!!"
       - name: multiline script
         run: |
           node -v
           npm -v
+          
 
           
 
