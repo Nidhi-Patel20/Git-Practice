@@ -3,7 +3,7 @@ name: merge Master_to_firstbranch
 on: 
   push:
     branches: 
-    - firstbranch
+    - master
 jobs: 
   merge-Branches:
     runs-on: windows-latest
