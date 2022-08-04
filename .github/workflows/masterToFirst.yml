@@ -1,16 +1,19 @@
 name: merge Master_to_firstbranch
 
-on: [push]
-
+on: 
+  push:
+    branches: 
+    - firstbranch
 jobs: 
   merge-Branches:
     runs-on: windows-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v2.4.2
+        uses: actions/checkout@v2.4.2  
       - name: Git-commands
         run: |
-             git merge master
-             git push --set-upstream origin master
+            git merge master
+            git push --set-upstream origin master
       - name: echo-message
         run: echo "Branches merged!!"
+  
