@@ -8,7 +8,7 @@ jobs:
     if: github.ref == 'master'
     steps:
       - name: echo a string
-        run: echo "hello everyone..."
+        run: echo "hello world!!"
       - name: multiline script
         run: |
           node -v
