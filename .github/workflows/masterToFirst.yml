@@ -10,7 +10,7 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2.4.2  
-        $ref: 'master'
+        #ref: 'master'
       - name: Git-commands
         run: |
             git checkout firstBranch
