@@ -5,7 +5,7 @@ on: [push]
 jobs:
   run-shell-command: 
     runs-on: windows-latest
-    if: github.ref == 'refs/heads/master'
+    if: github.ref == 'master'
     steps:
       - name: echo a string
         run: echo "hello Nidhi!!"
