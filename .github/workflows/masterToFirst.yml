@@ -13,7 +13,9 @@ jobs:
         #ref: 'master'
       - name: Git-commands
         run: |
-            git checkout firstBranch
+            git remote update
+            git fetch 
+            git checkout --track origin/firstBranch
             git merge master
             git push --set-upstream origin master
       - name: echo-message
