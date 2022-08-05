@@ -1,4 +1,4 @@
-name: merge firstBranch Master
+name: ActionsWorkflow
 
 on: [push]
 
@@ -6,7 +6,5 @@ jobs:
   merge-Branches:
     runs-on: windows-latest
     steps:
-      - name: commands
-        run: git merge firstBranch
       - name: echo message
         run: echo "Branches merged!!"

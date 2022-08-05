@@ -1,0 +1,16 @@
+name: Branch merge test
+
+on: [push]
+jobs:
+  Branch-test:
+    runs-on: windows-latest
+    steps:
+        - name: echo branch
+          run:  |
+                echo "git checkout firstBranch
+                Switched to branch 'firstBranch'"
+        - name: run commands
+          run:  |
+               pwd
+               mkdir Test
+    

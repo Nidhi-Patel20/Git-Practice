@@ -13,11 +13,8 @@ jobs:
         #ref: 'master'
       - name: Git-commands
         run: |
-            git remote update
-            git fetch 
-            git checkout --track origin/firstBranch
             git merge master
-            git push --set-upstream origin master
+            git push 
       - name: echo-message
         run: echo "Branches merged!!"
   
