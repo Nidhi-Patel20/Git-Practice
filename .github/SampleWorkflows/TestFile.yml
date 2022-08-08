@@ -1,4 +1,4 @@
-name: merge Master_to_firstbranch
+name: Sample Workflow
 on: 
   push:
     branches: 
