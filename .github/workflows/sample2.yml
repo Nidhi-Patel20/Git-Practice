@@ -6,16 +6,15 @@ on:
 
 jobs:
   run-shell-command: 
-    runs-on: windows-latest
-    if: github.ref == 'master'
+    runs-on: ubuntu-latest
     steps:
       - name: echo a string
-        run: echo "hello Nidhi!!"
+        run: echo"Thid id the "
       - name: multiline script
         run: |
           node -v
           npm -v
-          
+
 
           
 
