@@ -1,0 +1,19 @@
+name: env variables
+on: push
+env:
+  WF_ENV: ${{ secret.GITHUB_TOKEN }}
+
+jobs:
+  log-env:
+    runs-on: ubuntu-latest
+    env:
+      JOB_ENV: Available to all steps in log-env job
+    steps:
+      - name: log ENV variables 
+        env:
+          STEP_ENV: Available to only this step
+        run: |
+          echo "WF_ENV: ${WF_ENV}"
+          echo "JOB_ENV: ${JOB_ENV}"
+          echo "STEP_ENV: ${STEP_ENV}"
+
