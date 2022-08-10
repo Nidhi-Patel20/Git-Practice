@@ -1,0 +1,17 @@
+name: shell commands
+
+on: [push]
+
+jobs:
+  run-shell-command: 
+    runs-on: windows-latest
+    steps:
+      - name: echo a string
+        run: echo "hello!!"
+      - name: multiline script
+        run: |
+          node -v
+          npm -v
+
+          
+
