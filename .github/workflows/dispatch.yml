@@ -13,5 +13,14 @@ jobs:
   run-github-actions:
     runs-on: ubuntu-latest
     steps:
+      - name: payload
+        run: echo {{github.event.client_payload.env}} 
+        #using a github object to call object
+        #accessing the env object from client_payload from an event declared in postman
       - name: echo string
         run: echo "dispatch repository"
+      - name: list Files
+        run: |
+          pwd
+          echo "${{github.token}}"
+          echo $GITHUB_REPOSITORY
