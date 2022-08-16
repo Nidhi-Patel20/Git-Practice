@@ -1,0 +1,15 @@
+name: decryption
+on: push
+jobs:
+  decrypt:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      - name: decrypt file
+        run: gpg --quiet --batch --yes --decrypt 
+          --passphrase="$PASSPHRASE" --output $HOME/secretFile.json 
+          secretFile.json.gpg
+        env: 
+          PASSPHRASE: ${{ secrets.PASSPHRASE }}
+      - name: print file
+        run: cat $HOME/secretFile.json
