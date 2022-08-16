@@ -9,3 +9,4 @@ jobs:
     steps:
       - name: "Say Hello Mona it's Monday"
         run: echo "$Greeting ${First_Name}. Today is ${{ secrets.WF_ENV}}!"
+        
