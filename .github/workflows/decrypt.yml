@@ -13,3 +13,5 @@ jobs:
           PASSPHRASE: ${{ secrets.PASSPHRASE }}
       - name: print file
         run: cat $HOME/secretFile.json
+
+        
