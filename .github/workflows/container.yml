@@ -27,9 +27,7 @@ jobs:
         run: echo "docker container"
       - name: ports
         run: 'curl -X POST http://localhost:3001/api/user
-
           -H ''Content-Type: application/json'' -d ''
-
           {"username": "hello","address": "dwded"}"'
       - name: Get users
         run: curl http://localhost:3001/api/users   
