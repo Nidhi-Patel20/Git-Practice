@@ -10,4 +10,19 @@ jobs:
       - name: Log node version
         run: |
           node -v 
-            cat /etc/os-release
+          cat /etc/os-release
+  node-docker-job:
+    runs-on: ubuntu-latest
+    services: 
+      app:
+        image: alialaa17/node-api
+        ports:
+          - 3001:3000
+      mongo:
+        image: mongo
+        ports:
+          - "27017:27017"
+    steps: 
+      - name: echo
+        run: echo "docker container"
+     
