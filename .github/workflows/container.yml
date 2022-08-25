@@ -31,4 +31,4 @@ jobs:
           {"username": "hello","address": "pune"}'''
       - name: Get users
         run: curl http://localhost:3001/api/users   
-        
+      
