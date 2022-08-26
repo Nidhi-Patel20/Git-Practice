@@ -1,0 +1,30 @@
+
+
+docker run hello-world ---> downloads/creates docker image name--hello-world
+docker images --> displays all images currently installed in system
+docker rmi imageId--> removes docker image of provided image id
+docker images -q --> returns all of the installed image ids
+ docker inspect repository --> to see the details of docker image
+ 
+ docker run –it centos /bin/bash --> launch docker container
+		--> runs docker container in an interactive mode(-it)
+		-->press ctrl+p to return to your os shell
+ docker ps --> lists currently running docker containers
+ docker ps -a --> lists all the docker conatiners on system
+ docker history imageID --> will let you see all the commands that were run with an image via a container.
+ 
+ docker top containerID --> to  see the top processes within a container.
+ docker stop containerID --> to stop the running container
+ docker rm containerID --> removes a docker conatiner from system
+ docker stats containerID --> gives statistics of docker conatienr
+ docker pause containerID --> to pause a running container
+ docker unpause containerID --> to unpause a running container
+ 
+ 
+ 
+ 
+ 
+ 
+ SELECT * FROM FF_SHIPDAILYPOS_NEW_1
+
+SELECT * FROM FF_SHIPDAILYPOS_NEW_2
