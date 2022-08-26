@@ -20,6 +20,8 @@ jobs:
           entrypoint: '/bin/echo'
           args: -v
       - uses : actions/checkout@v1
+      - name: change permissions
+        run: chmod +x script.sh
       - name: Run script
         uses: docker://node:gallium-alpine3.15
         with:
