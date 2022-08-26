@@ -1,6 +1,7 @@
 name: Container
-on: push
-
+on: 
+  push:
+  workflow_dispatch: 
 jobs:
   docker-steps:
     runs-on: ubuntu-latest
