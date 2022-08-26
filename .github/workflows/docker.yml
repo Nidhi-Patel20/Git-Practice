@@ -10,12 +10,12 @@ jobs:
       - name: log node version
         run: node -v
       - name: Step1 with docker
-        uses: docker://mongodb:mongo
+        uses: docker://node:gallium-alpine3.15
         with:
           entrypoint: '/bin/echo'
           args: 'Hello world'
       - name: Step2 with docker
-        uses: docker://mongodb:mongo
+        uses: docker://node:gallium-alpine3.15
         with:
           entrypoint: '/cmd/git'
           args: -v
