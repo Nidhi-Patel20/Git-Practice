@@ -19,6 +19,12 @@ jobs:
         with:
           entrypoint: '/mingw64/bin/git'
           args: -v
+      - uses : actions/checkout@v1
+      - name: Run script
+        uses: docker://node:gallium-alpine3.15
+        with:
+          entrypoint: ./script.sh
+          args: "Random string in script file"
 
 
 
