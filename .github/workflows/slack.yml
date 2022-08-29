@@ -21,7 +21,7 @@ jobs:
           args: -v
       - uses : actions/checkout@v1
       - name: A slack message
-        uses: docker:technosophos/slack-notify
+        uses: docker://technosophos/slack-notify
         env:
           SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
           SLACK_MESSAGE: "THIS IS SLACK MESSAGE "
