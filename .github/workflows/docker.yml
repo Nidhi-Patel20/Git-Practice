@@ -27,6 +27,6 @@ jobs:
         uses: docker://node:gallium-alpine3.15
         with:
           entrypoint: ./script.sh
-          args: "Random string in script file"
+          args: "Random string in myscript file"
 
 
