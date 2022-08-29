@@ -20,7 +20,7 @@ jobs:
           entrypoint: '/bin/echo'
           args: -v
       - uses : actions/checkout@v1
-      - name: slack message
+      - name: step3 slack message
         uses: docker:technosophos/slack-notify
         env:
           SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
