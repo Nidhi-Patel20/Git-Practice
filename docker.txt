@@ -20,7 +20,9 @@ docker images -q --> returns all of the installed image ids
  docker pause containerID --> to pause a running container
  docker unpause containerID --> to unpause a running container
  
+ script ---------->
  
+ chmod +x script.sh
  
  
  
