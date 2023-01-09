@@ -10,6 +10,7 @@ pipeline {
             steps{
                  script{
                     mainJenkinsFile = load "C:/Users/NidPatel/Desktop/jenkins/tagAutomation/src/test.groovy"
+                    echo "variable 1: ${params.param1}"
                     mainJenkinsFile.runJob(params.param1, params.param2)                   
                 }
             }
