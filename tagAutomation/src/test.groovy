@@ -5,7 +5,7 @@ def runJob(par1, par2 ) {
         stages {
             stage("Print Status"){
                 steps{
-                    sh 'echo "Hi there!" '        
+                    echo "Hi there!"         
                 }
             }
         }        
