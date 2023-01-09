@@ -1,0 +1,18 @@
+pipeline {
+    agent any
+
+    parameters {
+        string(defaultValue: "oneone", description: 'First param', name: 'param1')
+        string(defaultValue: "twotwo", description: 'Second param', name: 'param2')
+    }
+    stages {
+         stage("Run chaos job"){
+            steps{
+                 script{
+                    mainJenkinsFile = load "C:/Users/NidPatel/Desktop/jenkins/tagAutomation/src/test.groovy"
+                    mainJenkinsFile.runJob(params.param1, params.param2)                   
+                }
+            }
+        }
+    }        
+}
