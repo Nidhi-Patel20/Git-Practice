@@ -5,6 +5,7 @@ jobs:
   builds:
     runs-on: windows-latest
     steps:
+      - uses: actions/checkout@v1
       - name: echo a string
         run: echo "hello!!"
       - name: multiline script
