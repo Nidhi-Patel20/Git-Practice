@@ -8,11 +8,4 @@ jobs:
       - uses: actions/checkout@v1
       - name: echo a string
         run: echo "hello!!"
-      - name: run command
-        run: |
-          cd C:/Users/NidPatel/Desktop/ABS_work
-      - name: Archive artifacts
-        uses: actions/upload-artifact@v2
-        with:
-          name: my-artifact
-          path: C:/Users/NidPatel/Desktop/ABS_work/6.5.29.4.zip
+
