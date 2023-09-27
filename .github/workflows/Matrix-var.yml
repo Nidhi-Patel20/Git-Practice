@@ -3,22 +3,57 @@ name: Running matrix
 on: push
 
 jobs:
-  setup:
+  # setup:
+  #   runs-on: ubuntu-latest
+  #   environment: staging
+  #   outputs:
+  #     matrix: ${{ steps.matrix.outputs.value }}
+  #   steps:
+  #     - id: matrix
+  #       run: |
+  #         echo 'Matrix env var is: ${{vars.MATRIX_VAR}} '
+  #         echo '::set-output name=value::[${{vars.MATRIX_VAR}}]'
+  # build:
+  #   needs: [ setup ]
+  #   runs-on: ubuntu-latest
+  #   strategy:
+  #     matrix: ${{fromJSON(needs.setup.outputs.matrix)}}
+  #   steps:
+  #     - run: |
+  #         echo "Value is: ${{toJSON(matrix.value.name) }}"
+
+  step1:
     runs-on: ubuntu-latest
     environment: staging
     outputs:
-      matrix: ${{ steps.matrix.outputs.value }}
+      matrix: ${{ steps.setup.outputs.matrix }}
+
     steps:
-      - id: matrix
-        run: |
-          echo 'Matrix env var is: ${{vars.MATRIX_VAR}} '
-          echo '::set-output name=value::[${{vars.MATRIX_VAR}}]'
-  build:
-    needs: [ setup ]
+    - name: Setup
+      id: setup
+      run: echo "matrix=$(jq -r -c . <<< "$CONFIG_VAR")" >> $GITHUB_OUTPUT
+    
+    - name: Check
+      run: jq . <<< '${{ steps.setup.outputs.matrix }}'
+
+  step2:
+    needs: step1
+
     runs-on: ubuntu-latest
+
     strategy:
-      matrix:
-        value: ${{fromJSON(needs.setup.outputs.matrix)}}
+      matrix: 
+        include: ${{ fromJSON(needs.step1.outputs.matrix) }}
+
     steps:
-      - run: |
-          echo "Value is: ${{toJSON(matrix.value.name) }}"
+    - name: Check
+      env:
+        MATRIX: ${{ toJSON(matrix) }}
+        PROJECT: ${{ fromJSON(toJSON(matrix)).project }}
+        CONFIG: ${{ fromJSON(toJSON(matrix)).config }}
+        NESTED: ${{ join(fromJSON(toJSON(matrix)).nested.*.val, ', ') }}
+      run: |
+        echo "MATRIX: $(jq -r -c '.' <<< "$MATRIX")"
+        echo "PROJECT: [$PROJECT]"
+        echo "CONFIG: [$CONFIG]"
+        echo "NESTED: [$NESTED]"
