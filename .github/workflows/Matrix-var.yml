@@ -12,12 +12,10 @@ jobs:
     steps:
       - id: matrix
         run: |
-          echo "value::[${MATRIX_VAR}]">> GITHUB_OUTPUT
-        env:
-          MATRIX_VAR: ${{vars.MATRIX_VAR}}
-
-          # A: ${{ steps.matrix.outputs.json && fromJSON(steps.matrix.outputs.json).package }}
-        
+          echo 'value::[{ "name":"package-a", "value": "true" }]' >> GITHUB_OUTPUT
+#           echo "value::[${MATRIX_VAR}]">> GITHUB_OUTPUT
+        # env:
+        #   MATRIX_VAR: ${{vars.MATRIX_VAR}}
     outputs:
       matrix: ${{ steps.matrix.outputs.value }}
   build:
@@ -29,5 +27,5 @@ jobs:
         value: ${{fromJSON(needs.setup.outputs.matrix)}}
     steps:
       - run: |
-          echo " Matrix env var: ${{vars.A}}"
+#          echo " Matrix env var: ${{vars.MATRIX_VAR}}"
           echo " Matrix: ${{ matrix.value }}"
