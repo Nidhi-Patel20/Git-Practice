@@ -5,12 +5,13 @@ on: push
 jobs:
   setup:
     runs-on: ubuntu-latest
+    environment: staging
     outputs:
       matrix: ${{ steps.matrix.outputs.value }}
     steps:
       - id: matrix
         run: |
-          echo '::set-output name=value::["a", "b", "c"]'
+          echo '::set-output name=value::["${{vars.MATRIX_VAR}}"]'
   build:
     needs: [ setup ]
     runs-on: ubuntu-latest
