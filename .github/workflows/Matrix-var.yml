@@ -11,10 +11,11 @@ jobs:
     environment: staging
     steps:
       - id: matrix
-        env:
-          MATRIX_VAR: ${{vars.MATRIX_VAR}}
         run: |
           echo "value::[ \"${{vars.MATRIX_VAR}}\" ]">> GITHUB_OUTPUT
+        env:
+          MATRIX_VAR: ${{vars.MATRIX_VAR}}
+        
 
     outputs:
       matrix: ${{ steps.matrix.outputs.value }}
