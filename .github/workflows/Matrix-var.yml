@@ -1,0 +1,30 @@
+name: Running matrix
+
+on: push
+env:
+  JSON_VALUE: '{ "name":"package-a", "enabled": "true" }'
+
+jobs:
+
+  setup:
+    runs-on: ubuntu-latest
+    environment: staging
+    steps:
+      - id: matrix
+        run: |
+          echo '::set-output name=value::["${JSON_VALUE}"]'
+#          echo 'value=[{ "name":"package-a", "enabled": "true" }, { "name":"package-b", "enabled": "false" }]' >> GITHUB_OUTPUT
+    outputs:
+      matrix: ${{ steps.matrix.outputs.value }}
+  build:
+    needs: [ setup ]
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        # value: ${{ needs.setup.outputs.matrix }}
+        value: ${{fromJSON(needs.setup.outputs.matrix)}}
+        #pkgName: ${{fromJSON(needs.setup.outputs.matrix.name)}}
+    steps:
+      - run: |
+          echo " JSON: ${JSON_VALUE}"
+          echo " Matrix: ${{ matrix.value }}"
