@@ -21,4 +21,4 @@ jobs:
         value: ${{fromJSON(needs.setup.outputs.matrix)}}
     steps:
       - run: |
-          echo "Value is: ${{toJSON(matrix.value) }}"
+          echo "Value is: ${{toJSON(matrix.value.name) }}"
