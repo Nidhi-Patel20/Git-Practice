@@ -27,9 +27,8 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        # value: ${{ needs.setup.outputs.matrix }}
         value: ${{fromJSON(needs.setup.outputs.matrix)}}
     steps:
       - run: |
          echo " Matrix: ${{ matrix.value }}"
-#          echo " Matrix env var: ${{vars.MATRIX_VAR}}"
+
