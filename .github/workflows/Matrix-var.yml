@@ -1,8 +1,8 @@
 name: Running matrix
 
 on: push
-env:
-  JSON_VALUE: '{ "name":"package-a", "enabled": "true" }'
+# env:
+#   JSON_VALUE: '{ "name":"package-a", "enabled": "true" }'
 
 jobs:
 
@@ -12,7 +12,7 @@ jobs:
     steps:
       - id: matrix
         run: |
-          echo '::set-output name=value::["${JSON_VALUE}"]'
+          echo '::set-output name=value::[${{vars.MATRIX_VAR}}]'
 #          echo 'value=[{ "name":"package-a", "enabled": "true" }, { "name":"package-b", "enabled": "false" }]' >> GITHUB_OUTPUT
     outputs:
       matrix: ${{ steps.matrix.outputs.value }}
