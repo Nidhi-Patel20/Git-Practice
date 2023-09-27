@@ -11,7 +11,8 @@ jobs:
     steps:
       - id: matrix
         run: |
-          echo '::set-output name=value::["${{vars.MATRIX_VAR}}"]'
+          echo 'Matrix env var is: ${{vars.MATRIX_VAR}} '
+#          echo '::set-output name=value::["${{vars.MATRIX_VAR}}"]'
   build:
     needs: [ setup ]
     runs-on: ubuntu-latest
