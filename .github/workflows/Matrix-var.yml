@@ -14,8 +14,7 @@ jobs:
         env:
           MATRIX_VAR: ${{vars.MATRIX_VAR}}
         run: |
-          echo '::set-output name=value::[$MATRIX_VAR] '
-#          echo 'value::[ \"${vars.MATRIX_VAR}\"]'>> GITHUB_OUTPUT
+          echo 'value::[ \"${MATRIX_VAR}\"]'>> GITHUB_OUTPUT
 
 
     outputs:
