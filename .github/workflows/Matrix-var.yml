@@ -12,11 +12,10 @@ jobs:
     steps:
       - id: matrix
         run: |
-          echo "value::[ \"${{vars.MATRIX_VAR}}\" ]">> GITHUB_OUTPUT
+          echo "value::[ \"${MATRIX_VAR}\" ]">> GITHUB_OUTPUT
         env:
           MATRIX_VAR: ${{vars.MATRIX_VAR}}
         
-
     outputs:
       matrix: ${{ steps.matrix.outputs.value }}
   build:
