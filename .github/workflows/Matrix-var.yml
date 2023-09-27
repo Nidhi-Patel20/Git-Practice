@@ -12,14 +12,14 @@ jobs:
     steps:
       - id: matrix
         run: |
-          echo '::set-output name=value::["${{vars.MATRIX_VAR}}"]'
+          echo '::set-output name=value::["a", "b", "c"]'
   build:
     needs: [ setup ]
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        # value: ${{ needs.setup.outputs.matrix }}
-        value: ${{fromJSON(needs.setup.outputs.matrix)}}
+        value: ${{ needs.setup.outputs.matrix }}
+        # value: ${{fromJSON(needs.setup.outputs.matrix)}}
     steps:
       - run: |
           echo "${{ matrix.value }}"
