@@ -9,15 +9,16 @@ jobs:
   setup:
     runs-on: ubuntu-latest
     environment: staging
+    outputs:
+      matrix: ${{ steps.matrix.outputs.value }}
     steps:
       - id: matrix
         run: |
-          echo 'value::[{ "name":"package-a", "value": "true" }]' >> GITHUB_OUTPUT
+          echo "value::[{ \"name\":\"package-a\", \"value\": \"true\" }]"" >> GITHUB_OUTPUT
 #           echo "value::[${MATRIX_VAR}]">> GITHUB_OUTPUT
         # env:
         #   MATRIX_VAR: ${{vars.MATRIX_VAR}}
-    outputs:
-      matrix: ${{ steps.matrix.outputs.value }}
+
   build:
     needs: [ setup ]
     runs-on: ubuntu-latest
