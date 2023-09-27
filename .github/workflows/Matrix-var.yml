@@ -3,10 +3,8 @@ name: Running matrix
 on: push
 
 jobs:
-
   setup:
     runs-on: ubuntu-latest
-    environment: staging
     outputs:
       matrix: ${{ steps.matrix.outputs.value }}
     steps:
@@ -18,8 +16,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        value: ${{ needs.setup.outputs.matrix }}
-        # value: ${{fromJSON(needs.setup.outputs.matrix)}}
+        value: ${{fromJSON(needs.setup.outputs.matrix)}}
     steps:
       - run: |
           echo "${{ matrix.value }}"
