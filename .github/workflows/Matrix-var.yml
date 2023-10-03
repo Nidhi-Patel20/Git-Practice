@@ -51,7 +51,7 @@ jobs:
         MATRIX: ${{ toJSON(matrix) }}
         APP_NAME: ${{ join(fromJSON(toJSON(matrix)).tenant_details.*.app-name, ', ') }}
         ARTIFACT_NAME: ${{ join(fromJSON(toJSON(matrix)).tenant_details.*.artifact-name, ', ') }}
-        APP_SETTINGS: ${{ join(fromJSON(toJSON(matrix)).tenant_details.*.app-settings, ', ') }}
+        APP_SETTINGS: ${{ join(fromJSON(toJSON(matrix)).tenant_details.*.app-settings.*.name, ', ') }}
         # NESTED: ${{ join(fromJSON(toJSON(matrix)).nested.*.val, ', ') }}
       run: |
         echo "MATRIX: $MATRIX"
