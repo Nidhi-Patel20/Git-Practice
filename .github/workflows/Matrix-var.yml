@@ -43,7 +43,7 @@ jobs:
         include: ${{ fromJSON(needs.step1.outputs.matrix) }}
     steps:
     - run: |
-        echo "Value is: ${{toJSON(matrix) }}"
+        echo "Value of matrix is: ${{toJSON(matrix) }}"
 
     # steps:
     # - name: Check
