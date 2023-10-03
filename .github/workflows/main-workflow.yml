@@ -21,7 +21,7 @@ jobs:
     needs: [Secret_format_job]
     runs-on: ubuntu-latest
     steps:
-      - run: echo "PUBLISH_PROFILE_SECRET"
+      - run: echo "$PUBLISH_PROFILE_SECRET"
 
 
 
