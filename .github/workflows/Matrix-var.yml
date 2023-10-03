@@ -31,7 +31,9 @@ jobs:
     steps:
     - name: Setup
       id: setup
-      run: echo "matrix=$(jq -r -c . <<< '$CONFIG_VAR')" >> $GITHUB_OUTPUT
+      run: |
+        echo "Env var CONFIG_VAR = $CONFIG_VAR"
+        echo "matrix=$(jq -r -c . <<< '$CONFIG_VAR')" >> $GITHUB_OUTPUT
     
     - name: Check
       run: jq . <<< '${{ steps.setup.outputs.matrix }}'
