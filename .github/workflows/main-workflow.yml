@@ -6,13 +6,13 @@ jobs:
     env:
       Greeting: Hello
       First_Name: Mona    
-    steps:
-      - uses: Nidhi-Patel20/Git-Practice/.github/workflows/format-secret.yml@main
-        with:
-          PUBLISH_PROFILE: ${{ format('{0}{1}', 'secrets.', 'PUBLISH_PROFILE') }}
-          
-      - name: "Say Hello Mona it's Monday"
-        run: echo "$Greeting ${First_Name}!"
+  Secret_format_job:
+    uses: .github/workflows/format-secret.yml@main
+    with:
+      environment: staging
+    secrets:
+      PUBLISH_PROFILE: ${{ secrets.PUBLISH_PROFILE }}
+
 
 
           
