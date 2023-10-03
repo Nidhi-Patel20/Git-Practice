@@ -31,7 +31,7 @@ jobs:
     steps:
     - name: Setup
       id: setup
-      run: echo "::set-output name=matrix::[${{vars.CONFIG_VAR}}]"
+      run: echo "matrix=$(EOF<<${{vars.CONFIG_VAR}})"  >> $GITHUB_OUTPUT
 #        echo "matrix=$(jq -r -c . <<< '${{vars.CONFIG_VAR}}')" >> $GITHUB_OUTPUT
     
     # - name: Check
