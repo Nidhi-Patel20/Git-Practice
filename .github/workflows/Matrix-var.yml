@@ -26,11 +26,11 @@ jobs:
     runs-on: ubuntu-latest
     environment: staging
     outputs:
-      matrix: ${{ steps.setup.outputs.matrix }}
+      matrix: ${{ steps.matrix_setup.outputs.matrix }}
 
     steps:
     - name: Setup
-      id: setup
+      id: matrix_setup
       run: echo "matrix=$(jq -r -c . <<< '${{vars.CONFIG_VAR}}')" >> $GITHUB_OUTPUT
 
     # - name: Check
