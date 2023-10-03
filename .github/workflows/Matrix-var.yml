@@ -31,11 +31,11 @@ jobs:
     steps:
     - name: Setup
       id: setup
-      run: echo "::set-output name=matrix::[${{vars.MATRIX_VAR}}]"
+      run: echo "::set-output name=matrix::[${{vars.CONFIG_VAR}}]"
 #        echo "matrix=$(jq -r -c . <<< '${{vars.CONFIG_VAR}}')" >> $GITHUB_OUTPUT
     
-    - name: Check
-      run: jq . <<< '${{ steps.setup.outputs.matrix }}'
+    # - name: Check
+    #   run: jq . <<< '${{ steps.setup.outputs.matrix }}'
 
   step2:
     needs: step1
