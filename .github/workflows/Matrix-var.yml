@@ -31,18 +31,15 @@ jobs:
     steps:
     - name: Setup
       id: setup
-      run: |
-        echo "Env var CONFIG_VAR = ${{vars.CONFIG_VAR}}"
-        echo "matrix=$(jq -r -c . <<< '${{vars.CONFIG_VAR}}')" >> $GITHUB_OUTPUT
+      run: echo "matrix=${{vars.CONFIG_VAR}}" >> $GITHUB_OUTPUT
+#        echo "matrix=$(jq -r -c . <<< '${{vars.CONFIG_VAR}}')" >> $GITHUB_OUTPUT
     
     - name: Check
       run: jq . <<< '${{ steps.setup.outputs.matrix }}'
 
   step2:
     needs: step1
-
     runs-on: ubuntu-latest
-
     strategy:
       matrix: 
         include: ${{ fromJSON(needs.step1.outputs.matrix) }}
