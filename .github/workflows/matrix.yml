@@ -21,7 +21,7 @@ jobs:
         include: ${{fromJSON(needs.setup.outputs.matrix)}}
     steps:
       - run: |
-          echo "Value is: ${{toJSON(matrix.value.name) }}"
+          echo "Value is:: ${{toJSON(matrix.value.name) }}"
 
   # node-version:
   #   runs-on: ${{ matrix.os }}

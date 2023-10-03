@@ -26,8 +26,7 @@ jobs:
     runs-on: ubuntu-latest
     environment: staging
     outputs:
-      matrix: ${{ steps.matrix_setup.outputs.value }}
-
+      matrix: ${{ steps.matrix_setup.outputs.value }}    
     steps:
     - name: Setup
       id: matrix_setup
@@ -42,16 +41,19 @@ jobs:
     strategy:
       matrix: 
         include: ${{ fromJSON(needs.step1.outputs.matrix) }}
-
     steps:
-    - name: Check
-      env:
-        MATRIX: ${{ toJSON(matrix) }}
-        PROJECT: ${{ fromJSON(toJSON(matrix)).project }}
-        CONFIG: ${{ fromJSON(toJSON(matrix)).config }}
-        NESTED: ${{ join(fromJSON(toJSON(matrix)).nested.*.val, ', ') }}
-      run: |
-        echo "MATRIX: $(jq -r -c '.' <<< '$MATRIX')"
-        echo "PROJECT: [$PROJECT]"
-        echo "CONFIG: [$CONFIG]"
-        echo "NESTED: [$NESTED]"
+    - run: |
+        echo "Value is: ${{toJSON(matrix) }}"
+
+    # steps:
+    # - name: Check
+    #   env:
+    #     MATRIX: ${{ toJSON(matrix) }}
+    #     PROJECT: ${{ fromJSON(toJSON(matrix)).project }}
+    #     CONFIG: ${{ fromJSON(toJSON(matrix)).config }}
+    #     NESTED: ${{ join(fromJSON(toJSON(matrix)).nested.*.val, ', ') }}
+    #   run: |
+    #     echo "MATRIX: $(jq -r -c '.' <<< '$MATRIX')"
+    #     echo "PROJECT: [$PROJECT]"
+    #     echo "CONFIG: [$CONFIG]"
+    #     echo "NESTED: [$NESTED]"
