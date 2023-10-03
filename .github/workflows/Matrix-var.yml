@@ -57,5 +57,5 @@ jobs:
         echo "MATRIX: $MATRIX"
         echo "APPNAME: [$APP_NAME]"
         echo "ARTIFACT NAME: [$ARTIFACT_NAME]"
-        echo "APP SETTINGS: [$APP_SETTINGS]"
+        echo "APP SETTINGS : [$APP_SETTINGS]"
 #        echo "NESTED: [$NESTED]"
