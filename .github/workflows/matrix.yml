@@ -11,7 +11,8 @@ jobs:
       - id: matrix
         run: |
           echo 'Matrix env var is: ${{vars.CONFIG_VAR}} '
-          echo '::set-output name=value::[${{vars.CONFIG_VAR}}]'
+          echo "value=$(jq -r -c . <<< '${{vars.CONFIG_VAR}}')" >> $GITHUB_OUTPUT
+
   build:
     needs: [ setup ]
     runs-on: ubuntu-latest
