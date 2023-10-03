@@ -49,7 +49,7 @@ jobs:
     - name: Check
       env:
         MATRIX: ${{ toJSON(matrix) }}
-        APP_NAME: ${{ join(fromJSON(toJSON(matrix)).tenant-details.*.app-name, ', ') }}
+        APP_NAME: ${{ fromJSON(toJSON(matrix)).tenant-details}}
         ARTIFACT_NAME: ${{ fromJSON(toJSON(matrix)).artifact-name }}
 #        NESTED: ${{ join(fromJSON(toJSON(matrix)).nested.*.val, ', ') }}
       run: |
