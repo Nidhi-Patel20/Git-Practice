@@ -34,10 +34,10 @@ jobs:
       run: echo "value=$(jq -r -c . <<< '${{vars.CONFIG_VAR}}')" >> $GITHUB_OUTPUT
 
     # - name: Check
-    #   run: jq . <<< '${{ steps.setup.outputs.matrix }}'
+    #   run: jq . <<< '${{ steps.setup.outputs.value }}'
 
   step2:
-    needs: step1
+    needs: [step1]
     runs-on: ubuntu-latest
     strategy:
       matrix: ${{ fromJSON(needs.step1.outputs.matrix) }}
