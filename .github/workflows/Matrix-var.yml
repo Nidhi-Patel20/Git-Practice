@@ -40,7 +40,8 @@ jobs:
     needs: [step1]
     runs-on: ubuntu-latest
     strategy:
-      matrix: ${{ fromJSON(needs.step1.outputs.matrix) }}
+      matrix: 
+        include: ${{ fromJSON(needs.step1.outputs.matrix) }}
 
     steps:
     - name: Check
