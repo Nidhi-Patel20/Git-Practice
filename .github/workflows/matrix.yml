@@ -2,25 +2,45 @@ name: Matrix
 on: push
 
 jobs:
-  node-version:
-    runs-on: ${{ matrix.os }}
-    strategy:
-      matrix:
-        os: [ubuntu-latest, windows-latest]
-        node_version: [6,8,10]
-        include:
-          - os : macos-latest
-            node_version: 8
-            is_ubuntu_8: "true"
-        exclude:
-          - os: ubuntu-latest
-            node_version: 6
-  
+  setup:
+    runs-on: ubuntu-latest
+    environment: staging
+    outputs:
+      matrix: ${{ steps.matrix.outputs.value }}
     steps:
-      - name: Log node node version
-        run: node -v
-      - uses:  actions/setup-node@v3
-        with:
-          node-version: ${{matrix.node_verison}}
-      - name: Log node node version
-        run: node -v
+      - id: matrix
+        run: |
+          echo 'Matrix env var is: ${{vars.CONFIG_VAR}} '
+          echo '::set-output name=value::[${{vars.CONFIG_VAR}}]'
+  build:
+    needs: [ setup ]
+    runs-on: ubuntu-latest
+    strategy:
+      matrix: 
+        include: ${{fromJSON(needs.setup.outputs.matrix)}}
+    steps:
+      - run: |
+          echo "Value is: ${{toJSON(matrix.value.name) }}"
+
+  # node-version:
+  #   runs-on: ${{ matrix.os }}
+  #   strategy:
+  #     matrix:
+  #       os: [ubuntu-latest, windows-latest]
+  #       node_version: [6,8,10]
+  #       include:
+  #         - os : macos-latest
+  #           node_version: 8
+  #           is_ubuntu_8: "true"
+  #       exclude:
+  #         - os: ubuntu-latest
+  #           node_version: 6
+  
+  #   steps:
+  #     - name: Log node node version
+  #       run: node -v
+  #     - uses:  actions/setup-node@v3
+  #       with:
+  #         node-version: ${{matrix.node_verison}}
+  #     - name: Log node node version
+  #       run: node -v
