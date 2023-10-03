@@ -30,7 +30,7 @@ jobs:
 
     steps:
     - name: Setup
-      id: setup
+      id: matrix
       run: echo "value=$(jq -r -c . <<< '${{vars.CONFIG_VAR}}')" >> $GITHUB_OUTPUT
 
     # - name: Check
