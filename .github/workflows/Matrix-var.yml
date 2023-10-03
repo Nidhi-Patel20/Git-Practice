@@ -55,5 +55,5 @@ jobs:
       run: |
         echo "MATRIX: $MATRIX"
         echo "APPNAME: [$APP_NAME]"
-        echo "ARTIFACT_NAME: [$ARTIFACT_NAME]"
+        echo "ARTIFACT NAME: [$ARTIFACT_NAME]"
 #        echo "NESTED: [$NESTED]"
