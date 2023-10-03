@@ -9,13 +9,13 @@ jobs:
     steps:
       - name: "Say Hello Mona it's Monday"
         run: echo "$Greeting ${First_Name}!"
-         
+
   Secret_format_job:
     uses: Nidhi-Patel20/Git-Practice/.github/workflows/format-secret.yml@main
     with:
       environment: staging
     secrets:
-      PUBLISH_PROFILE: ${{ secrets.PUBLISH_PROFILE }}
+      PUBLISH_PROFILE: ${{ format('{0}{1}', 'secrets.', 'PUBLISH_PROFILE') }}
 
 
 
