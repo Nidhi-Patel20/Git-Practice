@@ -49,11 +49,11 @@ jobs:
     - name: Check
       env:
         MATRIX: ${{ toJSON(matrix) }}
-        APPNAME: ${{ join(fromJSON(toJSON(matrix)).tenant_details.*.app-name, ', ') }}
+        APP_NAME: ${{ join(fromJSON(toJSON(matrix)).tenant_details.*.app-name, ', ') }}
         # CONFIG: ${{ fromJSON(toJSON(matrix)).config }}
         # NESTED: ${{ join(fromJSON(toJSON(matrix)).nested.*.val, ', ') }}
       run: |
         echo "MATRIX: $(jq -r -c '.' <<< '$MATRIX')"
-        echo "APPNAME: [$APPNAME]"
+        echo "APPNAME: [$APP_NAME]"
 #        echo "CONFIG: [$CONFIG]"
 #        echo "NESTED: [$NESTED]"
