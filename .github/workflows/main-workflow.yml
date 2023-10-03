@@ -7,7 +7,7 @@ jobs:
       Greeting: Hello
       First_Name: Mona    
   Secret_format_job:
-    uses: .github/workflows/format-secret.yml@main
+    uses: Nidhi-Patel20/Git-Practice/.github/workflows/format-secret.yml@main
     with:
       environment: staging
     secrets:
