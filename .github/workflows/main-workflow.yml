@@ -23,7 +23,7 @@ jobs:
     - name: Check
       env:
         MATRIX: ${{ toJSON(matrix) }}
-        APP_NAME: ${{ fromJSON(toJSON(matrix)).tenant_details.*.app-name }}
+        APP_NAME: ${{ join(fromJSON(toJSON(matrix)).tenant_details.*.app-name, ', ') }}
         PUBLISH_PROFILE: ${{ fromJSON(toJSON(matrix)).tenant_details.*.publish-profile }}        
       run: |
         echo "MATRIX: $MATRIX"
@@ -31,7 +31,7 @@ jobs:
         echo "PUBLISH PROFILE NAME: $PUBLISH_PROFILE"
 
   Secret_format_job:
-    needs: [step1]
+    needs: [step2]
     uses: Nidhi-Patel20/Git-Practice/.github/workflows/format-secret.yml@main
     with:
       environment: staging
