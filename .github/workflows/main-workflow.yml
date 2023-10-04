@@ -27,10 +27,12 @@ jobs:
     #     PUBLISH_PROFILE: ${{ join(fromJSON(toJSON(matrix)).tenant_details.*.publish-profile, ', ') }} 
     #     PUBLISH_PROFILE_SECRET: ${{ secrets[format('{0}' , '$PUBLISH_PROFILE')] }}
     - name: Check
+      id: check_id
       env:
         MATRIX: ${{ toJSON(matrix) }}
         APP_NAME: ${{ join(fromJSON(toJSON(matrix)).tenant_details.*.app-name, ', ') }}
-        PUBLISH_PROFILE: ${{ join(fromJSON(toJSON(matrix)).tenant_details.*.publish-profile, ', ') }}       
+        PUBLISH_PROFILE: ${{ join(fromJSON(toJSON(matrix)).tenant_details.*.publish-profile, ', ') }}     
+        PUBLISH_PROFILE_SECRET: ${{ secrets[format('{0}' , '$PUBLISH_PROFILE')] }}  
       run: |
         echo "MATRIX: $MATRIX"
         echo "APPNAME: $APP_NAME"
@@ -42,7 +44,7 @@ jobs:
     with:
       environment: staging
     secrets:
-      PUBLISH_PROFILE_SECRET: ${{ secrets[format('{0}' , '$PUBLISH_PROFILE')] }}
+      PUBLISH_PROFILE_SECRET: ${{ needs.step2.check_id.PUBLISH_PROFILE_SECRET }}
 
 
 
