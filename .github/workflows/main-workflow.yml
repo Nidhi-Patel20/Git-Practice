@@ -30,13 +30,20 @@ jobs:
         echo "APPNAME: $APP_NAME"
         echo "PUBLISH PROFILE NAME: $PUBLISH_PROFILE"
 
-  Secret_format_job:
-    needs: [step2]
-    uses: Nidhi-Patel20/Git-Practice/.github/workflows/format-secret.yml@main
-    with:
-      environment: staging
-    secrets:
-      PUBLISH_PROFILE_SECRET: ${{ secrets[format('{0}' , '$PUBLISH_PROFILE')] }}
+    - name: step-3
+      uses: Nidhi-Patel20/Git-Practice/.github/workflows/format-secret.yml@main
+      with:
+        environment: staging
+        PUBLISH_PROFILE_SECRET: ${{ secrets[format('{0}' , '$PUBLISH_PROFILE')] }}
+        # PUBLISH_PROFILE_SECRET_2: ${{ secrets[format('{0}' , 'PUBLISH_PROFILE_2')] }}
+    
+  # Secret_format_job:
+  #   needs: [step2]
+  #   uses: Nidhi-Patel20/Git-Practice/.github/workflows/format-secret.yml@main
+  #   with:
+  #     environment: staging
+  #   secrets:
+  #     PUBLISH_PROFILE_SECRET: ${{ secrets[format('{0}' , '$PUBLISH_PROFILE')] }}
       # PUBLISH_PROFILE_SECRET_2: ${{ secrets[format('{0}' , 'PUBLISH_PROFILE_2')] }}
 
 
