@@ -15,7 +15,7 @@ jobs:
     with:
       environment: staging
     secrets:
-      PUBLISH_PROFILE_SECRET: ${{ format('${ {0}{1} }' , '{secrets.', 'PUBLISH_PROFILE}') }}
+      PUBLISH_PROFILE_SECRET: ${{ format('{ {0}{1} }' , 'secrets.', 'PUBLISH_PROFILE') }}
 
   Print_output:
     needs: [Secret_format_job]
