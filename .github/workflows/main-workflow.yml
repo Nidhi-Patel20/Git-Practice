@@ -15,13 +15,13 @@ jobs:
     with:
       environment: staging
     secrets:
-      PUBLISH_PROFILE_SECRET: ${{ format('${0}{1} {2}{3} {4}{5}', '{' ,'{','secrets.', 'PUBLISH_PROFILE', '}','}') }}
+      PUBLISH_PROFILE_SECRET: ${{ format('${0}{1}{2}{3}{4}{5}', '{' ,'{','secrets.', 'PUBLISH_PROFILE', '}','}') }}
 
   Print_output:
     needs: [Secret_format_job]
     runs-on: ubuntu-latest
     steps:
-      - run: echo ${{ format('{0} {1}{2} {3}{4}', '${{','secrets.', 'PUBLISH_PROFILE', '}','}') }} 
+      - run: echo ${{ format('${0}{1}{2}{3}{4}{5}', '{' ,'{','secrets.', 'PUBLISH_PROFILE', '}','}') }} 
 
 
 
