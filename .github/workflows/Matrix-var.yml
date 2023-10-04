@@ -1,6 +1,19 @@
 name: Running matrix
 
-on: push
+on: 
+  workflow_call:
+    inputs:
+      environment: 
+        type: string
+        required: true
+        default: staging
+    secrets:
+      PUBLISH_PROFILE_SECRET_1:
+        required: true
+      PUBLISH_PROFILE_SECRET_2:
+        required: true
+        
+
 
 jobs:
   # setup:
@@ -46,13 +59,14 @@ jobs:
     - name: Check
       env:
         MATRIX: ${{ toJSON(matrix) }}
-        APP_NAME: ${{ join(fromJSON(toJSON(matrix)).tenant_details.*.app-name, ', ') }}
-        PUBLISH_PROFILE: ${{ join(fromJSON(toJSON(matrix)).tenant_details.*.publish-profile, ', ') }}
+        APP_NAME: ${{ fromJSON(toJSON(matrix)).tenant_details.*.app-name}}
+        PUBLISH_PROFILE: ${{ fromJSON(toJSON(matrix)).tenant_details.*.publish-profile }}
         # APP_SETTINGS: ${{ join(fromJSON(toJSON(matrix)).tenant_details.*.app-settings.*.name, ', ') }}
         # NESTED: ${{ join(fromJSON(toJSON(matrix)).nested.*.val, ', ') }}
+        
       run: |
         echo "MATRIX: $MATRIX"
-        echo "APPNAME: [$APP_NAME]"
-        echo "PUBLISH PROFILE NAME: [$PUBLISH_PROFILE]"
+        echo "APPNAME: $APP_NAME"
+        echo "PUBLISH PROFILE NAME: $PUBLISH_PROFILE"
 #        echo "APP SETTINGS : [$APP_SETTINGS]"
 #        echo "NESTED: [$NESTED]"

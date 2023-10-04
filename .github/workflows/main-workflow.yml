@@ -1,21 +1,44 @@
 name: Main workflow
 on: push 
 jobs:
-  greeting_job:
+
+  step1:
     runs-on: ubuntu-latest
-    env:
-      Greeting: Hello
-      First_Name: Mona 
+    environment: staging
+    outputs:
+      matrix: ${{ steps.matrix_setup.outputs.value }}    
     steps:
-      - name: "Say Hello Mona it's Monday"
-        run: echo "$Greeting ${First_Name}!"
+    - name: Setup
+      id: matrix_setup
+      run: echo "value=$(jq -r -c . <<< '${{vars.TENANT_DETAILS}}')" >> $GITHUB_OUTPUT
+
+  step2:
+    needs: [step1]
+    runs-on: ubuntu-latest
+    strategy:
+      matrix: 
+        include: ${{ fromJSON(needs.step1.outputs.matrix) }}
+
+    steps:
+    - name: Check
+      env:
+        MATRIX: ${{ toJSON(matrix) }}
+        APP_NAME: ${{ fromJSON(toJSON(matrix)).tenant_details.*.app-name}}
+        PUBLISH_PROFILE: ${{ fromJSON(toJSON(matrix)).tenant_details.*.publish-profile }}        
+      run: |
+        echo "MATRIX: $MATRIX"
+        echo "APPNAME: $APP_NAME"
+        echo "PUBLISH PROFILE NAME: $PUBLISH_PROFILE"
 
   Secret_format_job:
+    needs: [step2]
     uses: Nidhi-Patel20/Git-Practice/.github/workflows/format-secret.yml@main
     with:
       environment: staging
     secrets:
-      PUBLISH_PROFILE_SECRET: ${{ secrets[format('{0}' , 'PUBLISH_PROFILE')] }}
+      PUBLISH_PROFILE_SECRET: ${{ secrets[format('{0}' , '$PUBLISH_PROFILE')] }}
+      # PUBLISH_PROFILE_SECRET_2: ${{ secrets[format('{0}' , 'PUBLISH_PROFILE_2')] }}
+
 
 
 
