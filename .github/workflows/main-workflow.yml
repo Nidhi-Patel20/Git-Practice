@@ -24,7 +24,7 @@ jobs:
       env:
         MATRIX: ${{ toJSON(matrix) }}
         APP_NAME: ${{ join(fromJSON(toJSON(matrix)).tenant_details.*.app-name, ', ') }}
-        PUBLISH_PROFILE: ${{ fromJSON(toJSON(matrix)).tenant_details.*.publish-profile }}        
+        PUBLISH_PROFILE: ${{ join(fromJSON(toJSON(matrix)).tenant_details.*.publish-profile, ', ') }}        
       run: |
         echo "MATRIX: $MATRIX"
         echo "APPNAME: $APP_NAME"
