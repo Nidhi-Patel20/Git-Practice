@@ -17,15 +17,6 @@ jobs:
     secrets:
       PUBLISH_PROFILE_SECRET: ${{ secrets[format('{0}' , 'PUBLISH_PROFILE')] }}
 
-  Print_output:
-    needs: [Secret_format_job]
-    runs-on: ubuntu-latest
-    steps:
-      - run: |
-          echo ${{ secrets[format('{0}' , 'PUBLISH_PROFILE')] }}
-#          echo ${{ format('{0}{1}' , 'secrets.', 'PUBLISH_PROFILE') }}
-#          echo ${{ format('"${0}{1}{2}{3}{4}{5}"', '{' ,'{','secrets.', 'PUBLISH_PROFILE', '}','}') }} 
-
 
 
 
