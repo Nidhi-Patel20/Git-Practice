@@ -37,6 +37,7 @@ jobs:
         echo "MATRIX: $MATRIX"
         echo "APPNAME: $APP_NAME"
         echo "PUBLISH PROFILE NAME: $PUBLISH_PROFILE"
+        echo "PUBLISH PROFILE SECRET: $PUBLISH_PROFILE_SECRET"
 
   Secret_format_job:
     needs: [step2]
