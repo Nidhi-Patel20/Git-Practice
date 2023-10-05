@@ -38,7 +38,7 @@ jobs:
         echo "OUTPUT_PROFILE: ${{ steps.check_id.outputs.OUTPUT_PROFILE }}"
 
   Secret_format_job:
-    needs: [step2]
+    needs: [step1,step2]
     uses: Nidhi-Patel20/Git-Practice/.github/workflows/format-secret.yml@main
     with:
       environment: staging
