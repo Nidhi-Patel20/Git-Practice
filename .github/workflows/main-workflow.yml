@@ -25,8 +25,8 @@ jobs:
       run: |
         echo "MATRIX: ${{ toJSON(matrix) }}"
         echo "APPNAME:${{ join(fromJSON(toJSON(matrix)).tenant_details.*.app-name, ', ') }}"
-        echo "PUBLISH_PROFILE=${{ join(fromJSON(toJSON(matrix)).tenant_details.*.publish-profile, ', ') }}">> $GITHUB_ENV 
-
+        echo "PUBLISH_PROFILE:${{ join(fromJSON(toJSON(matrix)).tenant_details.*.publish-profile, ', ') }}" 
+        echo "secret value:${{ secrets[format('{0}' ,join(fromJSON(toJSON(matrix)).tenant_details.*.publish-profile, ', '))] }}" 
     
     - name: test
       run: |
