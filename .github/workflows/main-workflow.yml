@@ -16,36 +16,23 @@ jobs:
     needs: [step1]
     runs-on: ubuntu-latest
     environment: staging
-    outputs:
-      OUTPUT_PROFILE: ${{ steps.check_id.outputs.OUTPUT_PROFILE}}
     strategy:
       matrix: 
         include: ${{ fromJSON(needs.step1.outputs.matrix) }}
-    env:
-      SECRET_ENV_VAR: ${{ join(fromJSON(toJSON(matrix)).tenant_details.*.publish-profile, ', ') }}
 
     steps:
     - name: Check
-      id: check_id
+      id: check_id                                                                                                                                                                          
       run: |
         echo "MATRIX: ${{ toJSON(matrix) }}"
         echo "APPNAME:${{ join(fromJSON(toJSON(matrix)).tenant_details.*.app-name, ', ') }}"
         echo "PUBLISH_PROFILE:${{ join(fromJSON(toJSON(matrix)).tenant_details.*.publish-profile, ', ') }}"
-        echo "PUBLISH_PROFILE=${{ join(fromJSON(toJSON(matrix)).tenant_details.*.publish-profile, ', ') }}" >> $GITHUB_ENV
-        echo "OUTPUT_PROFILE=${{ join(fromJSON(toJSON(matrix)).tenant_details.*.publish-profile, ', ') }}" >> $GITHUB_OUTPUT
         echo "secret value:${{ secrets[format('{0}' ,join(fromJSON(toJSON(matrix)).tenant_details.*.publish-profile, ', '))] }}" 
-        echo "Env var: ${{ env.SECRET_ENV_VAR }}"
-        echo "Env var: ${{ secrets[env.SECRET_ENV_VAR] }}"
+        
     - name: test
       run: |
-        echo "${{ env.PUBLISH_PROFILE }}"
-        echo "env var:  ${{ secrets[format('{0}' ,join(fromJSON(toJSON(matrix)).tenant_details.*.publish-profile, ', '))] }}"
-        echo ${{ secrets[env.PUBLISH_PROFILE] }}
-        echo ${{ secrets.PUBLISH_PROFILE_1 }}
-        echo "${{ secrets.PUBLISH_PROFILE_1 }}"
-        echo "${{ steps.check_id.outputs.OUTPUT_PROFILE }}"
-        echo ${{ secrets[steps.check_id.outputs.OUTPUT_PROFILE] }}
-        echo "Env var: ${{ secrets[env.SECRET_ENV_VAR] }}"
+        echo "secret value:  ${{ secrets[format('{0}' ,join(fromJSON(toJSON(matrix)).tenant_details.*.publish-profile, ', '))] }}"
+
 
   # Secret_format_job:
   #   needs: [step2]
