@@ -20,9 +20,11 @@ jobs:
     environment: staging
     outputs:
       OUTPUT_PROFILE: ${{ steps.check_id.outputs.OUTPUT_PROFILE }}
+      ITERATION: ${{ steps.check_id.outputs.ITERATION}}
     strategy:
       matrix: 
         include: ${{ fromJSON(needs.step1.outputs.matrix) }}
+        iteration: [1,2]
 
     steps:
     - name: Check
@@ -32,6 +34,7 @@ jobs:
         echo "APPNAME:${{ join(fromJSON(toJSON(matrix)).tenant_details.*.app-name, ', ') }}"
         echo "PUBLISH_PROFILE:${{ join(fromJSON(toJSON(matrix)).tenant_details.*.publish-profile, ', ') }}"
         echo "OUTPUT_PROFILE=${{ join(fromJSON(toJSON(matrix)).tenant_details.*.publish-profile, ', ') }}" >> $GITHUB_OUTPUT
+        echo "ITERATION=${{ matrix.iteration }}" >> $GITHUB_OUTPUT
     - name: test
       run: |
         echo "secret value:  ${{ secrets[format('{0}' ,join(fromJSON(toJSON(matrix)).tenant_details.*.publish-profile, ', '))] }}"
@@ -39,6 +42,9 @@ jobs:
 
   Secret_format_job:
     needs: [step1,step2]
+    strategy:
+      matrix:
+        iteration: ${{ fromJSON(needs.step2.outputs.ITERATION) }}
     uses: Nidhi-Patel20/Git-Practice/.github/workflows/format-secret.yml@main
     with:
       environment: staging
