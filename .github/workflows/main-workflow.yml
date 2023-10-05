@@ -43,7 +43,7 @@ jobs:
     needs: [step1,step2]
     strategy:
       matrix:
-        iteration: ${{ fromJSON(needs.step2.outputs.SECRET) }}
+        include: ${{ fromJSON(needs.step2.outputs.SECRET) }}
     uses: Nidhi-Patel20/Git-Practice/.github/workflows/format-secret.yml@main
     with:
       environment: staging
