@@ -28,11 +28,11 @@ jobs:
         echo "APPNAME:${{ join(fromJSON(toJSON(matrix)).tenant_details.*.app-name, ', ') }}"
         echo "PUBLISH_PROFILE:${{ join(fromJSON(toJSON(matrix)).tenant_details.*.publish-profile, ', ') }}"
         echo "SECRET=${{ secrets[format('{0}' ,join(fromJSON(toJSON(matrix)).tenant_details.*.publish-profile, ', '))] }}" >> GITHUB_ENV
-        
+        echo "SECRET_VAL=${{ join(fromJSON(toJSON(matrix)).tenant_details.*.publish-profile, ', ') }}" >> $GITHUB_ENV
     - name: test
       run: |
         echo "secret value:  ${{ secrets[format('{0}' ,join(fromJSON(toJSON(matrix)).tenant_details.*.publish-profile, ', '))] }}"
-        echo "secret: ${{env.SECRET}}"
+        echo "secret: ${{env.SECRET_VAL}}"
     # - uses: Nidhi-Patel20/Git-Practice/.github/workflows/format-secret.yml@main
     #   with:
     #     environment: staging
@@ -46,7 +46,7 @@ jobs:
     environment: staging
     steps:
       - run: 
-          echo "secret:${{env.SECRET}} "
+          echo "secret:${{env.SECRET_VAL}} "
     # uses: Nidhi-Patel20/Git-Practice/.github/workflows/format-secret.yml@main
     # with:
     #   environment: staging
