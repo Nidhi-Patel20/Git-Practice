@@ -35,7 +35,7 @@ jobs:
     
     - name: test
       run: |
-        echo "env var: ${{ env.PUBLISH_PROFILE }}"
+        echo "env var:  ${{ secrets[format('{0}' ,env.PUBLISH_PROFILE)] }}"
   #       echo ${{ secrets[env.PUBLISH_PROFILE_SECRET] }}
   # Secret_format_job:
   #   needs: [step2]
