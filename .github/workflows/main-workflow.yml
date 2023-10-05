@@ -28,9 +28,10 @@ jobs:
         PUBLISH_PROFILE: ${{ join(fromJSON(toJSON(matrix)).tenant_details.*.publish-profile, ', ') }}     
         PUBLISH_PROFILE_SECRET: ${{ format('{0}' , env.PUBLISH_PROFILE) }}  
       run: |
-        echo "MATRIX: ${{ toJSON(matrix) }}"
-        echo "APPNAME: ${{ join(fromJSON(toJSON(matrix)).tenant_details.*.app-name, ', ') }}"
-        echo "PUBLISH_PROFILE=${{ join(fromJSON(toJSON(matrix)).tenant_details.*.publish-profile, ', ') }}" >> GITHUB_ENV
+        echo "MATRIX: $MATRIX"
+        echo "APPNAME: $APP_NAME"
+        echo "PUBLISH_PROFILE: $PUBLISH_PROFILE" 
+        echo "PUBLISH_PROFILE_SECRET: $PUBLISH_PROFILE_SECRET"
         echo "secret: ${{ secrets[env.PUBLISH_PROFILE_SECRET] }}"
   # Secret_format_job:
   #   needs: [step2]
