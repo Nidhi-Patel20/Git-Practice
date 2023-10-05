@@ -15,6 +15,7 @@ jobs:
   step2:
     needs: [step1]
     runs-on: ubuntu-latest
+    environment: staging
     outputs:
       OUTPUT_PROFILE: ${{ steps.check_id.outputs.OUTPUT_PROFILE}}
     strategy:
