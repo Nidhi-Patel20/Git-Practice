@@ -38,6 +38,7 @@ jobs:
         echo "SECRET: ${{ secrets.SECRET}}"
         echo "secret value:  ${{ secrets[format('{0}' ,join(fromJSON(toJSON(matrix)).tenant_details.*.publish-profile, ', '))] }}"
         echo "OUTPUT_PROFILE: ${{ steps.check_id.outputs.OUTPUT_PROFILE }}"
+
   Secret_format_job:
     needs: [step2]
     uses: Nidhi-Patel20/Git-Practice/.github/workflows/format-secret.yml@main
@@ -49,13 +50,6 @@ jobs:
       # PUBLISH_PROFILE_SECRET: ${{ secrets[format('{0}',needs.step2.outputs.OUTPUT_PROFILE)] }}
 
 
-  # Secret_format_job:
-  #   needs: [step2]
-  #   runs-on: ubuntu-latest
-  #   environment: staging
-  #   steps:
-  #     - run: 
-  #         echo "secret:${{env.SECRET_VAL}} "
 
 
 
