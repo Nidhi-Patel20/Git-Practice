@@ -36,7 +36,7 @@ jobs:
       run: |
         echo "MATRIX: ${{ toJSON(matrix) }}"
         echo "APPNAME: ${{ join(fromJSON(toJSON(matrix)).tenant_details.*.app-name, ', ') }}"
-        echo "PUBLISH_PROFILE: ${{ join(fromJSON(toJSON(matrix)).tenant_details.*.publish-profile, ', ') }}" >> $GITHUB_ENV
+        echo "PUBLISH_PROFILE: ${{ secrets[format(join(fromJSON(toJSON(matrix)).tenant_details.*.publish-profile, ', ') )]}}" >> $GITHUB_ENV
 
   Secret_format_job:
     runs-on: ubuntu-latest
