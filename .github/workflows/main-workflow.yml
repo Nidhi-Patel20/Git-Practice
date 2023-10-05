@@ -29,19 +29,16 @@ jobs:
         echo "APPNAME:${{ join(fromJSON(toJSON(matrix)).tenant_details.*.app-name, ', ') }}"
         echo "PUBLISH_PROFILE:${{ join(fromJSON(toJSON(matrix)).tenant_details.*.publish-profile, ', ') }}"
         echo "SECRET=${{ secrets[format('{0}' ,join(fromJSON(toJSON(matrix)).tenant_details.*.publish-profile, ', '))] }}" >> $GITHUB_ENV
-        echo "SECRET_VAL=${{ join(fromJSON(toJSON(matrix)).tenant_details.*.publish-profile, ', ') }}" >> $GITHUB_ENV
         echo "NEW_SECRET=$SECRET" >> GITHUB_ENV
     - name: test
       run: |
-        echo "SECRET: ${{ secrets.NEW_SECRET}}"
+        echo "SECRET: ${{ secrets.SECRET}}"
         echo "secret value:  ${{ secrets[format('{0}' ,join(fromJSON(toJSON(matrix)).tenant_details.*.publish-profile, ', '))] }}"
-        echo "secret: ${{env.SECRET_VAL}}"
 
-    # - uses: Nidhi-Patel20/Git-Practice/.github/workflows/format-secret.yml@main
-    #   with:
-    #     environment: staging
-    #   secrets:
-    #     PUBLISH_PROFILE_SECRET: ${{ secrets[format('{0}', env.SECRET_VAL)] }}
+    - uses: Nidhi-Patel20/Git-Practice/.github/workflows/format-secret.yml@main
+      with:
+        environment: staging
+        PUBLISH_PROFILE_SECRET: ${{ env.SECRET  }}
 
 
   Secret_format_job:
