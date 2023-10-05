@@ -32,7 +32,7 @@ jobs:
         echo "APPNAME:${{ join(fromJSON(toJSON(matrix)).tenant_details.*.app-name, ', ') }}"
         echo "PUBLISH_PROFILE:${{ join(fromJSON(toJSON(matrix)).tenant_details.*.publish-profile, ', ') }}"
         echo "SECRET=${{ secrets[format('{0}' ,join(fromJSON(toJSON(matrix)).tenant_details.*.publish-profile, ', '))] }}" >> $GITHUB_ENV
-        echo "OUTPUT_PROFILE=${{ join(fromJSON(toJSON(matrix)).tenant_details.*.publish-profile, ', ') }}" >> $GITHUB_OUTPUT
+        echo "OUTPUT_PROFILE=${{ secrets[join(fromJSON(toJSON(matrix)).tenant_details.*.publish-profile, ', ')] }}" >> $GITHUB_OUTPUT
     - name: test
       run: |
         echo "SECRET: ${{ secrets.SECRET}}"
