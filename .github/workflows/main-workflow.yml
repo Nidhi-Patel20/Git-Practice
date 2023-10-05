@@ -28,24 +28,27 @@ jobs:
     #     PUBLISH_PROFILE_SECRET: ${{ secrets[format('{0}' , '$PUBLISH_PROFILE')] }}
     - name: Check
       id: check_id
-      env:
-        MATRIX: ${{ toJSON(matrix) }}
-        APP_NAME: ${{ join(fromJSON(toJSON(matrix)).tenant_details.*.app-name, ', ') }}
-        PUBLISH_PROFILE: ${{ join(fromJSON(toJSON(matrix)).tenant_details.*.publish-profile, ', ') }}     
-        PUBLISH_PROFILE_SECRET: ${{ secrets[format('{0}' , env.PUBLISH_PROFILE)] }}  
+      # env:
+      #   MATRIX: ${{ toJSON(matrix) }}
+      #   APP_NAME: ${{ join(fromJSON(toJSON(matrix)).tenant_details.*.app-name, ', ') }}
+      #   PUBLISH_PROFILE: ${{ join(fromJSON(toJSON(matrix)).tenant_details.*.publish-profile, ', ') }}     
+      #   PUBLISH_PROFILE_SECRET: ${{ secrets[format('{0}' , env.PUBLISH_PROFILE)] }}  
       run: |
-        echo "MATRIX: $MATRIX"
-        echo "APPNAME: $APP_NAME"
-        echo "PUBLISH PROFILE NAME: $PUBLISH_PROFILE"
-        echo "PUBLISH PROFILE SECRET: $PUBLISH_PROFILE_SECRET"
+        echo "MATRIX: ${{ toJSON(matrix) }}"
+        echo "APPNAME: ${{ join(fromJSON(toJSON(matrix)).tenant_details.*.app-name, ', ') }}"
+        echo "PUBLISH_PROFILE: ${{ join(fromJSON(toJSON(matrix)).tenant_details.*.publish-profile, ', ') }}" >> $GITHUB_ENV
 
   Secret_format_job:
+    runs-on: ubuntu-latest
     needs: [step2]
-    uses: Nidhi-Patel20/Git-Practice/.github/workflows/format-secret.yml@main
-    with:
-      environment: staging
-    secrets:
-      PUBLISH_PROFILE_SECRET: ${{ needs.step2.check_id.PUBLISH_PROFILE_SECRET }}
+    steps:
+      - name: use env var
+        run: echo " value of publish profile is ${{ env.PUBLISH_PROFILE }}"
+    # uses: Nidhi-Patel20/Git-Practice/.github/workflows/format-secret.yml@main
+    # with:
+    #   environment: staging
+    # secrets:
+    #   PUBLISH_PROFILE_SECRET: ${{ env.PUBLISH_PROFILE }}
 
 
 
