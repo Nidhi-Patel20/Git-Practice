@@ -45,7 +45,7 @@ jobs:
     with:
       environment: staging
     secrets:
-      PUBLISH_PROFILE_SECRET: ${{ needs.step2.outputs.OUTPUT_PROFILE }}
+      PUBLISH_PROFILE_SECRET: ${{ secrets[needs.step2.outputs.OUTPUT_PROFILE] }}
 
 
 
