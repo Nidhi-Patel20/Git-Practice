@@ -32,7 +32,7 @@ jobs:
         echo "APPNAME: $APP_NAME"
         echo "PUBLISH_PROFILE: $PUBLISH_PROFILE" 
         echo "PUBLISH_PROFILE_SECRET: $PUBLISH_PROFILE_SECRET"
-        echo "secret: ${{ secrets[env.PUBLISH_PROFILE_SECRET] }}"
+        echo ${{ secrets[env.PUBLISH_PROFILE_SECRET] }}
   # Secret_format_job:
   #   needs: [step2]
   #   uses: Nidhi-Patel20/Git-Practice/.github/workflows/format-secret.yml@main
