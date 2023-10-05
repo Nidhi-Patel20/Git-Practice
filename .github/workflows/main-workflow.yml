@@ -20,6 +20,8 @@ jobs:
     strategy:
       matrix: 
         include: ${{ fromJSON(needs.step1.outputs.matrix) }}
+    env:
+      SECRET_ENV_VAR: ${{ join(fromJSON(toJSON(matrix)).tenant_details.*.publish-profile, ', ') }}
 
     steps:
     - name: Check
@@ -31,7 +33,8 @@ jobs:
         echo "PUBLISH_PROFILE=${{ join(fromJSON(toJSON(matrix)).tenant_details.*.publish-profile, ', ') }}" >> $GITHUB_ENV
         echo "OUTPUT_PROFILE=${{ join(fromJSON(toJSON(matrix)).tenant_details.*.publish-profile, ', ') }}" >> $GITHUB_OUTPUT
         echo "secret value:${{ secrets[format('{0}' ,join(fromJSON(toJSON(matrix)).tenant_details.*.publish-profile, ', '))] }}" 
-    
+        echo "Env var: ${{ env.SECRET_ENV_VAR }}"
+        echo "Env var: ${{ secrets[env.SECRET_ENV_VAR] }}"
     - name: test
       run: |
         echo "${{ env.PUBLISH_PROFILE }}"
@@ -41,6 +44,7 @@ jobs:
         echo "${{ secrets.PUBLISH_PROFILE_1 }}"
         echo "${{ steps.check_id.outputs.OUTPUT_PROFILE }}"
         echo ${{ secrets[steps.check_id.outputs.OUTPUT_PROFILE] }}
+        echo "Env var: ${{ secrets[env.SECRET_ENV_VAR] }}"
 
   # Secret_format_job:
   #   needs: [step2]
