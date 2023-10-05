@@ -15,6 +15,8 @@ jobs:
   step2:
     needs: [step1]
     runs-on: ubuntu-latest
+    outputs:
+      OUTPUT_PROFILE: ${{ steps.check_id.outputs.OUTPUT_PROFILE}}
     strategy:
       matrix: 
         include: ${{ fromJSON(needs.step1.outputs.matrix) }}
@@ -27,6 +29,7 @@ jobs:
         echo "APPNAME:${{ join(fromJSON(toJSON(matrix)).tenant_details.*.app-name, ', ') }}"
         echo "PUBLISH_PROFILE:${{ join(fromJSON(toJSON(matrix)).tenant_details.*.publish-profile, ', ') }}"
         echo "PUBLISH_PROFILE=${{ join(fromJSON(toJSON(matrix)).tenant_details.*.publish-profile, ', ') }}" >> $GITHUB_ENV
+        echo "OUTPUT_PROFILE=${{ join(fromJSON(toJSON(matrix)).tenant_details.*.publish-profile, ', ') }}" >> $GITHUB_OUTPUT
         echo "secret value:${{ secrets[format('{0}' ,join(fromJSON(toJSON(matrix)).tenant_details.*.publish-profile, ', '))] }}" 
     
     - name: test
@@ -34,6 +37,11 @@ jobs:
         echo "${{ env.PUBLISH_PROFILE }}"
         echo "env var:  ${{ secrets[format('{0}' ,join(fromJSON(toJSON(matrix)).tenant_details.*.publish-profile, ', '))] }}"
         echo ${{ secrets[env.PUBLISH_PROFILE] }}
+        echo ${{ secrets.PUBLISH_PROFILE_1 }}
+        echo "${{ secrets.PUBLISH_PROFILE_1 }}"
+        echo "${{ steps.check_id.outputs.OUTPUT_PROFILE }}"
+        echo ${{ secrets[steps.check_id.outputs.OUTPUT_PROFILE] }}
+
   # Secret_format_job:
   #   needs: [step2]
   #   uses: Nidhi-Patel20/Git-Practice/.github/workflows/format-secret.yml@main
