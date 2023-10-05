@@ -32,14 +32,14 @@ jobs:
         echo "APPNAME:${{ join(fromJSON(toJSON(matrix)).tenant_details.*.app-name, ', ') }}"
         echo "PUBLISH_PROFILE=${{ join(fromJSON(toJSON(matrix)).tenant_details.*.publish-profile, ', ') }}">> $GITHUB_ENV 
         echo "PUBLISH_PROFILE_SECRET: ${{ env.PUBLISH_PROFILE }}"
-        # echo ${{ secrets[env.PUBLISH_PROFILE_SECRET] }}
+  #       echo ${{ secrets[env.PUBLISH_PROFILE_SECRET] }}
   # Secret_format_job:
   #   needs: [step2]
   #   uses: Nidhi-Patel20/Git-Practice/.github/workflows/format-secret.yml@main
   #   with:
   #     environment: staging
   #   secrets:
-  #     PUBLISH_PROFILE_SECRET: ${{ secrets[env.PUBLISH_PROFILE_SECRET] }}
+  #     PUBLISH_PROFILE_SECRET: ${{ secrets[env.PUBLISH_PROFILE] }}
         # run: echo " value of publish profile is ${{ env.PUBLISH_PROFILE }}"
 
 
