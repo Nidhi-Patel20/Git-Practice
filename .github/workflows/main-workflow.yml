@@ -34,11 +34,11 @@ jobs:
       run: |
         echo "secret value:  ${{ secrets[format('{0}' ,join(fromJSON(toJSON(matrix)).tenant_details.*.publish-profile, ', '))] }}"
         echo "secret: ${{env.SECRET_VAL}}"
-    # - uses: Nidhi-Patel20/Git-Practice/.github/workflows/format-secret.yml@main
-    #   with:
-    #     environment: staging
-    #   secrets:
-    #     PUBLISH_PROFILE_SECRET: ${{ secrets[format('{0}', env.SECRET)] }}
+
+    - uses: Nidhi-Patel20/Git-Practice/.github/workflows/format-secret.yml@main
+      with:
+        environment: staging
+        PUBLISH_PROFILE_SECRET: ${{ secrets[format('{0}', env.SECRET_VAL)] }}
 
 
   Secret_format_job:
