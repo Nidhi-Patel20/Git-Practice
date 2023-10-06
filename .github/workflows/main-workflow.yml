@@ -29,7 +29,7 @@ jobs:
       id: check_id                                                                                                                                                                          
       run: |
         echo "MATRIX: ${{ toJSON(matrix) }}"
-        echo "APPNAME:${{ fromJSON(toJSON(matrix)).tenant_details.*.app-name }}"
+        echo "APPNAME:${{ join(fromJSON(toJSON(matrix)).tenant_details.*.app-name, ', ') }}"
         echo "PUBLISH_PROFILE:${{ join(fromJSON(toJSON(matrix)).tenant_details.*.publish-profile, ', ') }}"
         echo "SECRET=${{ join(fromJSON(toJSON(matrix)).tenant_details.*.publish-profile, ', ') }}" >> $GITHUB_OUTPUT
     - name: test
@@ -43,7 +43,7 @@ jobs:
     with:
       environment: staging
     secrets:
-      PUBLISH_PROFILE_SECRET: ${{ secrets[needs.step2.outputs.SECRET] }}
+      PUBLISH_PROFILE_SECRET: ${{ secrets[fromJSON(needs.step2.outputs.SECRET)] }}
 
 
 
