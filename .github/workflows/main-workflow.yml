@@ -1,7 +1,5 @@
 name: Main workflow
 on: push 
-env:
-  SECRET_VAL: temp val
 jobs:
   step1:
     runs-on: ubuntu-latest
