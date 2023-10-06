@@ -14,12 +14,16 @@ jobs:
       run: echo "value=$(jq -r -c . <<< '${{vars.TENANT_DETAILS}}')" >> $GITHUB_OUTPUT
 
   step2:
+
     needs: [step1]
     runs-on: ubuntu-latest
     environment: staging
+    # outputs:
+    #   SECRET: ${{ steps.check_id.outputs.SECRET }}
     strategy:
       matrix: 
         include: ${{ fromJSON(needs.step1.outputs.matrix) }}
+
     steps:
     - name: Check
       id: check_id                                                                                                                                                                          
@@ -27,7 +31,11 @@ jobs:
         echo "MATRIX: ${{ toJSON(matrix) }}"
         echo "APPNAME:${{ join(fromJSON(toJSON(matrix)).tenant_details.*.app-name, ', ') }}"
         echo "PUBLISH_PROFILE:${{ join(fromJSON(toJSON(matrix)).tenant_details.*.publish-profile, ', ') }}"
-        echo "DATABASE_NAME:${{ join(fromJSON(toJSON(matrix)).tenant_details.*.spring-datasource-url, ', ') }}"
+#        echo "SECRET=${{ join(fromJSON(toJSON(matrix)).tenant_details.*.publish-profile, ', ') }}" >> $GITHUB_OUTPUT
+    - name: test
+      run: |
+        echo "secret value:  ${{ secrets[format('{0}' ,join(fromJSON(toJSON(matrix)).tenant_details.*.publish-profile, ', '))] }}"
+#        echo "SECRET: ${{ steps.check_id.outputs.SECRET }}"
 
   Secret_format_job:
     needs: [step1, step2]
@@ -37,21 +45,6 @@ jobs:
     uses: Nidhi-Patel20/Git-Practice/.github/workflows/format-secret.yml@main
     with:
       environment: staging
-      publish_profile: ${{ join(fromJSON(toJSON(matrix)).tenant_details.*.publish-profile, ', ') }}
-      db_name: ${{ join(fromJSON(toJSON(matrix)).tenant_details.*.spring-datasource-url, ', ') }}
+      secret_var: ${{ join(fromJSON(toJSON(matrix)).tenant_details.*.publish-profile, ', ') }}
     secrets:
       PUBLISH_PROFILE_SECRET: ${{ secrets[join(fromJSON(toJSON(matrix)).tenant_details.*.publish-profile, ', ')] }}
-
-
-
-
-
-
-
-
-
-
-
-          
-
-      
