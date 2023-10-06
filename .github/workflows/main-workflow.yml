@@ -11,7 +11,7 @@ jobs:
     steps:
     - name: Setup
       id: matrix_setup
-      run: echo "value=$(jq -r -c . <<< '${{vars.serviceDetails}}')" >> $GITHUB_OUTPUT
+      run: echo "value=$(jq -r -c . <<< '${{vars.TENANT_DETAILS}}')" >> $GITHUB_OUTPUT
 
   step2:
     needs: [step1]
