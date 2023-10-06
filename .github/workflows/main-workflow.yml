@@ -13,16 +13,20 @@ jobs:
       id: matrix_setup
       run: echo "value=$(jq -r -c . <<< '${{vars.serviceDetails}}')" >> $GITHUB_OUTPUT
 
-  # step2:
-  #   needs: [step1]
-  #   runs-on: ubuntu-latest
-  #   environment: staging
-  #   strategy:
-  #     matrix: 
-  #       include: ${{ fromJSON(needs.step1.outputs.matrix) }}
+  step2:
+    needs: [step1]
+    runs-on: ubuntu-latest
+    environment: staging
+    strategy:
+      matrix: 
+        include: ${{ fromJSON(needs.step1.outputs.matrix) }}
+    steps:
+    - name: Accessing matrix                                                                                                                                                                    
+      run: |
+        echo "MATRIX: ${{ toJSON(matrix) }}"
 
   Secret_format_job:
-    needs: [step1]
+    needs: [step1, step2]
     strategy:
       matrix: 
         include: ${{ fromJSON(needs.step1.outputs.matrix) }}
