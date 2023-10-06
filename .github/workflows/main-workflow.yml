@@ -45,6 +45,7 @@ jobs:
     uses: Nidhi-Patel20/Git-Practice/.github/workflows/format-secret.yml@main
     with:
       environment: staging
+      secret_var: ${{ needs.steps2.outputs.SECRET }}
     secrets:
       PUBLISH_PROFILE_SECRET: ${{ secrets[join(fromJSON(toJSON(matrix)).tenant_details.*.publish-profile, ', ')] }}
 
