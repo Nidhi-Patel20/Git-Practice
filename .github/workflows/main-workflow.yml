@@ -34,7 +34,7 @@ jobs:
     with:
       environment: staging
       app-name: ${{ join(fromJSON(toJSON(matrix)).serviceDetails.*.appName, ', ') }}
-      publish-profile: ${{ join(fromJSON(toJSON(matrix)).serviceDetails.*.publish-profile, ', ') }}
+      publish-profile: ${{ join(fromJSON(toJSON(matrix)).serviceDetails.*.publishProfileSecretName, ', ') }}
       spring-db-name: ${{ join(fromJSON(toJSON(matrix)).serviceDetails.*.springDatasourceUrl, ', ') }}
     secrets:
-      PUBLISH_PROFILE_SECRET: ${{ secrets[join(fromJSON(toJSON(matrix)).serviceDetails.*.publish-profile, ', ')] }}
+      PUBLISH_PROFILE_SECRET: ${{ secrets[join(fromJSON(toJSON(matrix)).serviceDetails.*.publishProfileSecretName, ', ')] }}
