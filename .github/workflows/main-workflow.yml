@@ -38,12 +38,14 @@ jobs:
         echo "SECRET: ${{ steps.check_id.outputs.SECRET }}"
 
   Secret_format_job:
-    needs: [step2]
+    needs: [step1, step2]
+    strategy:
+      matrix:${{ fromJSON(needs.step1.outputs.matrix) }}
     uses: Nidhi-Patel20/Git-Practice/.github/workflows/format-secret.yml@main
     with:
       environment: staging
     secrets:
-      PUBLISH_PROFILE_SECRET: ${{ secrets[fromJSON(needs.step2.outputs.SECRET)] }}
+      PUBLISH_PROFILE_SECRET: ${{ secrets[join(fromJSON(toJSON(matrix)).tenant_details.*.publish-profile, ', ')] }}
 
 
 
