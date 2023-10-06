@@ -29,7 +29,7 @@ jobs:
       id: check_id                                                                                                                                                                          
       run: |
         echo "MATRIX: ${{ toJSON(matrix) }}"
-        echo "APPNAME:${{ join(fromJSON(toJSON(matrix)).tenant_details.*.app-name, ', ') }}"
+        echo "APPNAME:${{ fromJSON(toJSON(matrix)).tenant_details.app-name }}"
         echo "PUBLISH_PROFILE:${{ join(fromJSON(toJSON(matrix)).tenant_details.*.publish-profile, ', ') }}"
         echo "SECRET=${{ join(fromJSON(toJSON(matrix)).tenant_details.*.publish-profile, ', ') }}" >> $GITHUB_OUTPUT
     - name: test
