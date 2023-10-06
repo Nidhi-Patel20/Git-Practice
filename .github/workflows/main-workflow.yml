@@ -20,10 +20,11 @@ jobs:
     environment: staging
     outputs:
       SECRET: ${{ steps.check_id.outputs.SECRET }}
-      ITERATION: ${{ steps.check_id.outputs.ITERATION}}
+      ITERATION: ${{ steps.check_id.outputs.ITERATION }}
     strategy:
       matrix: 
         include: ${{ fromJSON(needs.step1.outputs.matrix) }}
+        iteration: ${{ fromJSON(needs.step1.outputs.matrix) }}
 
     steps:
     - name: Check
@@ -43,7 +44,7 @@ jobs:
     needs: [step1,step2]
     strategy:
       matrix:
-        include: ${{ fromJSON(needs.step2.outputs.SECRET) }}
+        iteration: ${{ fromJSON(needs.step2.outputs.ITERATION) }}
     uses: Nidhi-Patel20/Git-Practice/.github/workflows/format-secret.yml@main
     with:
       environment: staging
