@@ -40,7 +40,8 @@ jobs:
   Secret_format_job:
     needs: [step1, step2]
     strategy:
-      matrix: ${{ fromJSON(needs.step1.outputs.matrix) }}
+      matrix: 
+        include: ${{ fromJSON(needs.step1.outputs.matrix) }}
     uses: Nidhi-Patel20/Git-Practice/.github/workflows/format-secret.yml@main
     with:
       environment: staging
